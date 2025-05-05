@@ -23,6 +23,22 @@ def update_theme(request):
     return JsonResponse({'status': 'failed'}, status=400)
 
 
+@login_required
+def bookmark_hotel(request, hotel_id):
+    hotel = Hotel.objects.get(uid=hotel_id)
+    if not HotelBookmark.objects.filter(user=request.user, hotel=hotel).exists():
+        HotelBookmark.objects.create(user=request.user, hotel=hotel)
+    return redirect(request.META.get('HTTP_REFERER', 'home'))
+
+@login_required
+def unbookmark_hotel(request, hotel_id):
+    hotel = Hotel.objects.get(uid=hotel_id)
+    bookmark = HotelBookmark.objects.filter(user=request.user, hotel=hotel).first()
+    if bookmark:
+        bookmark.delete()
+    return redirect(request.META.get('HTTP_REFERER', 'home'))
+
+
 def home(request):
     query = request.GET.get('q', '')
     star_rating = request.GET.get('star_rating')
@@ -45,12 +61,19 @@ def home(request):
 
     amenities = Amenity.objects.all()
 
+    bookmarked_hotels = []
+    if request.user.is_authenticated:
+        bookmarked_hotels = HotelBookmark.objects.filter(user=request.user).values_list('hotel__uid', flat=True)
+
+
+
     return render(request, 'home.html', {
         'hotels': hotels,
         'query': query,
         'star_rating': star_rating,
         'amenity': amenity,
         'amenities': amenities,
+        'bookmarked_hotels': bookmarked_hotels,  # Pass to template
     })
 
 
