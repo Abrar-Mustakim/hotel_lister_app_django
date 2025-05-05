@@ -9,6 +9,40 @@
 
 
 
+
+
+  <!-- Search and Filter Bar -->
+  <form method="get" class="bg-white rounded-lg shadow p-6 mb-6 grid grid-cols-1 md:grid-cols-4 gap-4">
+    <input type="text" name="q" placeholder="Search by name or location"
+          value="{{ query }}" class="p-2 border rounded w-full" />
+
+    <select name="star_rating" class="p-2 border rounded w-full">
+      <option value="">All Star Ratings</option>
+      {% for i in '12345' %}
+        <option value="{{ i }}" {% if star_rating == i|stringformat:'s' %}selected{% endif %}>{{ i }} Star</option>
+      {% endfor %}
+    </select>
+
+    <select name="amenity" class="p-2 border rounded w-full">
+      <option value="">All Amenities</option>
+      {% for a in amenities %}
+        <option value="{{ a.name }}" {% if amenity == a.name %}selected{% endif %}>{{ a.name }}</option>
+      {% endfor %}
+    </select>
+
+    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+      Search
+    </button>
+  </form>
+
+
+
+
+
+
+
+
+
   <div class="mt-8 space-y-6">
     {% for hotel in hotels %}
       <div class="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col md:flex-row">

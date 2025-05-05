@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 import json
 from django.http import JsonResponse
+from django.db.models import Q
 
 # Create your views here.
 
@@ -23,14 +24,36 @@ def update_theme(request):
 
 
 def home(request):
-    # Get all hotels
+    query = request.GET.get('q', '')
+    star_rating = request.GET.get('star_rating')
+    amenity = request.GET.get('amenity')
+
     hotels = Hotel.objects.all()
 
-    # Fetch images for each hotel (If any exist)
-    for hotel in hotels:
-        hotel.image = hotel.images.first() if hotel.images.exists() else None  # Get first image or None
+    if query:
+        hotels = hotels.filter(Q(hotel_name__icontains=query) | Q(location__icontains=query))
 
-    return render(request, 'home.html', {'hotels': hotels})
+    if star_rating:
+        hotels = hotels.filter(star_rating=star_rating)
+
+    if amenity:
+        hotels = hotels.filter(amenities__name__icontains=amenity)
+
+    # Optional: Get first image
+    for hotel in hotels:
+        hotel.image = hotel.images.first() if hotel.images.exists() else None
+
+    amenities = Amenity.objects.all()
+
+    return render(request, 'home.html', {
+        'hotels': hotels,
+        'query': query,
+        'star_rating': star_rating,
+        'amenity': amenity,
+        'amenities': amenities,
+    })
+
+
 
 def login_view(request):
     return render(request, 'login.html')
