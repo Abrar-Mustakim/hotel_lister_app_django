@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 import json
 from django.http import JsonResponse
 from django.db.models import Q
-
+from django.contrib.auth import logout as auth_logout
 # Create your views here.
 
 @login_required
@@ -56,11 +56,47 @@ def home(request):
 
 
 def login_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+
+        if user:
+            login(request, user)
+            return redirect('home')
+        else:
+            messages.error(request, "Invalid credentials")
+            return redirect('login')
+
     return render(request, 'login.html')
 
 def register_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        confirm_password = request.POST.get('confirm_password')
+
+        if password != confirm_password:
+            messages.error(request, "Passwords do not match.")
+            return redirect('register')
+
+        if User.objects.filter(username=username).exists():
+            messages.error(request, "Username already exists.")
+            return redirect('register')
+
+        user = User.objects.create_user(username=username, email=email, password=password)
+        #UserProfile.objects.create(user=user)  # Create profile with default theme
+        login(request, user)
+        messages.success(request, "Registration successful.")
+        return redirect('home')
+
     return render(request, 'register.html')
 
+
+def logout(request): 
+    auth_logout(request)
+    return redirect('login')
 
 def profile(request):
     return render(request, 'profile.html')

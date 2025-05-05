@@ -1,6 +1,49 @@
-<!-- home.html -->
 {% extends 'base.html' %}
 
 {% block content %}
-  Login
+  <div class="flex justify-center items-center min-h-screen bg-gray-100 dark:bg-gray-900">
+    <div class="w-full max-w-md p-8 bg-white rounded-lg shadow-lg dark:bg-gray-800">
+      <h2 class="text-3xl font-semibold text-center text-gray-900 dark:text-white mb-6">Login</h2>
+
+      <!-- Form Starts Here -->
+      <form method="POST" class="space-y-6">
+        {% csrf_token %}
+        
+        <!-- Username Field -->
+        <div>
+          <label for="username" class="block text-gray-700 dark:text-gray-300">Username</label>
+          <input type="text" id="username" name="username" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:focus:ring-indigo-500 dark:focus:border-indigo-500" required>
+        </div>
+        
+        <!-- Password Field -->
+        <div>
+          <label for="password" class="block text-gray-700 dark:text-gray-300">Password</label>
+          <input type="password" id="password" name="password" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:focus:ring-indigo-500 dark:focus:border-indigo-500" required>
+        </div>
+        
+        <!-- Submit Button -->
+        <div>
+          <button type="submit" class="w-full p-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-300 dark:bg-indigo-500 dark:hover:bg-indigo-600 dark:focus:ring-indigo-700">
+            Login
+          </button>
+        </div>
+      </form>
+
+      <!-- Register Redirect -->
+      <div class="text-center mt-4">
+        <p class="text-gray-600 dark:text-gray-400">Don't have an account? <a href="{% url 'register' %}" class="text-indigo-600 hover:text-indigo-700 dark:text-indigo-500 dark:hover:text-indigo-400">Register here</a></p>
+      </div>
+
+      <!-- Display Messages -->
+      {% if messages %}
+        <div class="mt-4">
+          <ul class="text-red-600 dark:text-red-400">
+            {% for message in messages %}
+              <li class="text-sm">{{ message }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    </div>
+  </div>
 {% endblock %}
