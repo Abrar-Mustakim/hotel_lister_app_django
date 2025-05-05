@@ -16,14 +16,14 @@
     <input type="text" name="q" placeholder="Search by name or location"
           value="{{ query }}" class="p-2 border rounded w-full" />
 
-    <select name="star_rating" class="p-2 border rounded w-full">
+    <select name="star_rating"  class="p-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-black dark:text-white rounded w-full">
       <option value="">All Star Ratings</option>
       {% for i in '12345' %}
         <option value="{{ i }}" {% if star_rating == i|stringformat:'s' %}selected{% endif %}>{{ i }} Star</option>
       {% endfor %}
     </select>
 
-    <select name="amenity" class="p-2 border rounded w-full">
+    <select name="amenity" class="p-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-black dark:text-white rounded w-full">
       <option value="">All Amenities</option>
       {% for a in amenities %}
         <option value="{{ a.name }}" {% if amenity == a.name %}selected{% endif %}>{{ a.name }}</option>
@@ -94,33 +94,33 @@
       
         <!-- Bookmark Button -->
         <!-- Bookmark Button -->
-        {% if user.is_authenticated %}
-        <div class="absolute top-4 right-4">
-          {% if hotel.uid in bookmarked_hotels %}
-            <!-- Already Bookmarked -->
-            <a href="{% url 'unbookmark' hotel.uid %}" title="Remove bookmark">
-              <svg class="w-6 h-6 text-red-500 hover:scale-110 transition" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 
-                        2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09
-                        C13.09 3.81 14.76 3 16.5 3 
-                        19.58 3 22 5.42 22 8.5
-                        c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-              </svg>
-            </a>
-          {% else %}
-            <!-- Not Bookmarked -->
-            <a href="{% url 'bookmark' hotel.uid %}" title="Bookmark this hotel">
-              <svg class="w-6 h-6 text-gray-400 hover:text-red-400 hover:scale-110 transition" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 
-                        2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09
-                        C13.09 3.81 14.76 3 16.5 3 
-                        19.58 3 22 5.42 22 8.5
-                        c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-              </svg>
-            </a>
-          {% endif %}
-        </div>
+      {% if user.is_authenticated %}
+      <div class="absolute top-4 right-4">
+        {% if hotel.uid in bookmarked_hotels %}
+          <!-- Already Bookmarked -->
+          <a href="{% url 'unbookmark' hotel.uid %}" title="Remove bookmark">
+            <svg class="w-6 h-6 text-red-500 hover:scale-110 transition" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 
+                      2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09
+                      C13.09 3.81 14.76 3 16.5 3 
+                      19.58 3 22 5.42 22 8.5
+                      c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+          </a>
+        {% else %}
+          <!-- Not Bookmarked -->
+          <a href="{% url 'bookmark' hotel.uid %}" title="Bookmark this hotel">
+            <svg class="w-6 h-6 text-gray-400 hover:text-red-400 hover:scale-110 transition" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 
+                      2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09
+                      C13.09 3.81 14.76 3 16.5 3 
+                      19.58 3 22 5.42 22 8.5
+                      c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+          </a>
         {% endif %}
+      </div>
+      {% endif %}
 
       
       
