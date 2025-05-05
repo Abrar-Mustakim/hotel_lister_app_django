@@ -57,3 +57,16 @@ class HotelBookmark(BaseModel):
 
     def __str__(self):
         return f"{self.user.username} bookmarked {self.hotel.hotel_name}"
+    
+
+# User Theme Preference
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
+    theme_preference = models.CharField(
+        max_length=20,
+        choices=[('light', 'Light'), ('dark', 'Dark')],
+        default='light'
+    )
+
+    def __str__(self):
+        return f"{self.user.username}'s Theme Preference"

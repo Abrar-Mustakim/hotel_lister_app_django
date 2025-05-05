@@ -22,6 +22,12 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from home.views import * 
 
 urlpatterns = [
+    path('', home, name='home'),  # Home page
+    path('profile/', profile, name='profile'),
+    path('login/', login_view, name='login'),  # Login page
+    path('register/', register_view, name='register'), 
+    path('logout/', logout, name='logout'), 
+    path('update-theme/', update_theme, name='update_theme'),
     path('admin/', admin.site.urls),
 ]
 
