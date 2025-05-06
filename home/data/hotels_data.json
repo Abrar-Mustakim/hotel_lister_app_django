@@ -1,0 +1,110 @@
+{
+    "amenities": [
+      { "name": "Pool" },
+      { "name": "Free WiFi" },
+      { "name": "Gym" }
+    ],
+    "hotels": [
+      {
+        "hotel_name": "Grand Hotel",
+        "description": "A luxurious hotel with amazing amenities and excellent service.",
+        "price": 150.00,
+        "star_rating": 5,
+        "location": "New York",
+        "room_count": 100,
+        "amenities": ["Pool", "Free WiFi", "Gym"],
+        "images": ["hotel.jpg"]
+      },
+      {
+        "hotel_name": "Sunset Inn",
+        "description": "Perfect for watching sunsets and relaxing by the beach.",
+        "price": 85.50,
+        "star_rating": 4,
+        "location": "California",
+        "room_count": 40,
+        "amenities": ["Pool", "Free WiFi"],
+        "images": ["hotel.jpg"]
+      },
+      {
+        "hotel_name": "Mountain View Lodge",
+        "description": "Cozy rooms with scenic mountain views and nature trails nearby.",
+        "price": 120.00,
+        "star_rating": 3,
+        "location": "Colorado",
+        "room_count": 60,
+        "amenities": ["Free WiFi", "Gym"],
+        "images": ["hotel.jpg"]
+      },
+      {
+        "hotel_name": "Urban Retreat",
+        "description": "A modern retreat in the heart of the city with excellent transport access.",
+        "price": 200.00,
+        "star_rating": 5,
+        "location": "Chicago",
+        "room_count": 150,
+        "amenities": ["Pool", "Gym"],
+        "images": ["hotel.jpg"]
+      },
+      {
+        "hotel_name": "Lakeview Hotel",
+        "description": "Enjoy peaceful views of the lake and a refreshing morning breeze.",
+        "price": 95.00,
+        "star_rating": 3,
+        "location": "Minnesota",
+        "room_count": 70,
+        "amenities": ["Free WiFi"],
+        "images": ["hotel.jpg"]
+      },
+      {
+        "hotel_name": "Budget Stay",
+        "description": "Affordable, clean, and comfortable rooms for short stays.",
+        "price": 49.99,
+        "star_rating": 2,
+        "location": "Texas",
+        "room_count": 30,
+        "amenities": ["Free WiFi"],
+        "images": ["hotel.jpg"]
+      },
+      {
+        "hotel_name": "Royal Palace",
+        "description": "Experience royal hospitality with top-tier services and fine dining.",
+        "price": 300.00,
+        "star_rating": 5,
+        "location": "Washington D.C.",
+        "room_count": 200,
+        "amenities": ["Pool", "Free WiFi", "Gym"],
+        "images": ["hotel.jpg"]
+      },
+      {
+        "hotel_name": "Desert Oasis",
+        "description": "A beautiful desert escape with modern amenities and comfort.",
+        "price": 110.00,
+        "star_rating": 4,
+        "location": "Arizona",
+        "room_count": 80,
+        "amenities": ["Pool", "Free WiFi"],
+        "images": ["hotel.jpg"]
+      },
+      {
+        "hotel_name": "Skyline Towers",
+        "description": "Stay in the clouds with panoramic views and luxury interiors.",
+        "price": 175.00,
+        "star_rating": 4,
+        "location": "Seattle",
+        "room_count": 120,
+        "amenities": ["Free WiFi", "Gym"],
+        "images": ["hotel.jpg"]
+      },
+      {
+        "hotel_name": "Countryside Escape",
+        "description": "Disconnect and unwind in our serene countryside estate.",
+        "price": 70.00,
+        "star_rating": 3,
+        "location": "Vermont",
+        "room_count": 50,
+        "amenities": ["Gym"],
+        "images": ["hotel.jpg"]
+      }
+    ]
+  }
+  
