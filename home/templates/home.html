@@ -12,28 +12,38 @@
 
 
   <!-- Search and Filter Bar -->
-  <form method="get" class="bg-white rounded-lg shadow p-6 mb-6 grid grid-cols-1 md:grid-cols-4 gap-4">
-    <input type="text" name="q" placeholder="Search by name or location"
-          value="{{ query }}" class="p-2 border rounded w-full" />
+  <!-- Search and Filter Bar -->
+<form method="get" class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-6 grid grid-cols-1 md:grid-cols-4 gap-4">
+  
+  <!-- Search Input -->
+  <input type="text" name="q" placeholder="Search by name or location"
+         value="{{ query }}"
+         class="p-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 rounded w-full" />
 
-    <select name="star_rating"  class="p-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-black dark:text-white rounded w-full">
-      <option value="">All Star Ratings</option>
-      {% for i in '12345' %}
-        <option value="{{ i }}" {% if star_rating == i|stringformat:'s' %}selected{% endif %}>{{ i }} Star</option>
-      {% endfor %}
-    </select>
+  <!-- Star Rating Filter -->
+  <select name="star_rating"
+          class="p-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded w-full">
+    <option value="">All Star Ratings</option>
+    {% for i in '12345' %}
+      <option value="{{ i }}" {% if star_rating == i|stringformat:'s' %}selected{% endif %}>{{ i }} Star</option>
+    {% endfor %}
+  </select>
 
-    <select name="amenity" class="p-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-black dark:text-white rounded w-full">
-      <option value="">All Amenities</option>
-      {% for a in amenities %}
-        <option value="{{ a.name }}" {% if amenity == a.name %}selected{% endif %}>{{ a.name }}</option>
-      {% endfor %}
-    </select>
+  <!-- Amenity Filter -->
+  <select name="amenity"
+          class="p-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded w-full">
+    <option value="">All Amenities</option>
+    {% for a in amenities %}
+      <option value="{{ a.name }}" {% if amenity == a.name %}selected{% endif %}>{{ a.name }}</option>
+    {% endfor %}
+  </select>
 
-    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-      Search
-    </button>
-  </form>
+  <!-- Submit Button -->
+  <button type="submit"
+          class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded w-full md:w-auto">
+    Search
+  </button>
+</form>
 
 
 
@@ -131,7 +141,7 @@
     <div class="mt-8 flex justify-center space-x-2">
       {% if hotels.has_previous %}
         <a href="?{% if query %}q={{ query }}&{% endif %}{% if star_rating %}star_rating={{ star_rating }}&{% endif %}{% if amenity %}amenity={{ amenity }}&{% endif %}page={{ hotels.previous_page_number }}"
-          class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">
+          class="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white rounded hover:bg-gray-300 dark:hover:bg-gray-600">
           Previous
         </a>
       {% endif %}
@@ -141,7 +151,7 @@
           <span class="px-3 py-1 bg-blue-600 text-white rounded">{{ num }}</span>
         {% else %}
           <a href="?{% if query %}q={{ query }}&{% endif %}{% if star_rating %}star_rating={{ star_rating }}&{% endif %}{% if amenity %}amenity={{ amenity }}&{% endif %}page={{ num }}"
-            class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">
+            class="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white rounded hover:bg-gray-300 dark:hover:bg-gray-600">
             {{ num }}
           </a>
         {% endif %}
@@ -149,11 +159,12 @@
 
       {% if hotels.has_next %}
         <a href="?{% if query %}q={{ query }}&{% endif %}{% if star_rating %}star_rating={{ star_rating }}&{% endif %}{% if amenity %}amenity={{ amenity }}&{% endif %}page={{ hotels.next_page_number }}"
-          class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">
+          class="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white rounded hover:bg-gray-300 dark:hover:bg-gray-600">
           Next
         </a>
       {% endif %}
     </div>
+
 
   </div>
 
