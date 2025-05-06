@@ -8,6 +8,8 @@ import json
 from django.http import JsonResponse
 from django.db.models import Q
 from django.contrib.auth import logout as auth_logout
+from django.core.paginator import Paginator
+
 # Create your views here.
 
 @login_required
@@ -55,9 +57,14 @@ def home(request):
     if amenity:
         hotels = hotels.filter(amenities__name__icontains=amenity)
 
-    # Optional: Get first image
+    # Optional: Add first image
     for hotel in hotels:
         hotel.image = hotel.images.first() if hotel.images.exists() else None
+
+    # Add pagination (3 hotels per page)
+    paginator = Paginator(hotels, 3)
+    page_number = request.GET.get('page')
+    hotels_page = paginator.get_page(page_number)
 
     amenities = Amenity.objects.all()
 
@@ -65,15 +72,13 @@ def home(request):
     if request.user.is_authenticated:
         bookmarked_hotels = HotelBookmark.objects.filter(user=request.user).values_list('hotel__uid', flat=True)
 
-
-
     return render(request, 'home.html', {
-        'hotels': hotels,
+        'hotels': hotels_page,  # paginated hotels
         'query': query,
         'star_rating': star_rating,
         'amenity': amenity,
         'amenities': amenities,
-        'bookmarked_hotels': bookmarked_hotels,  # Pass to template
+        'bookmarked_hotels': bookmarked_hotels,
     })
 
 

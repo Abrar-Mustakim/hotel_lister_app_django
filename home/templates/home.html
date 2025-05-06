@@ -127,6 +127,34 @@
       
       </div>
     {% endfor %}
+    <!-- Pagination -->
+    <div class="mt-8 flex justify-center space-x-2">
+      {% if hotels.has_previous %}
+        <a href="?{% if query %}q={{ query }}&{% endif %}{% if star_rating %}star_rating={{ star_rating }}&{% endif %}{% if amenity %}amenity={{ amenity }}&{% endif %}page={{ hotels.previous_page_number }}"
+          class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">
+          Previous
+        </a>
+      {% endif %}
+
+      {% for num in hotels.paginator.page_range %}
+        {% if hotels.number == num %}
+          <span class="px-3 py-1 bg-blue-600 text-white rounded">{{ num }}</span>
+        {% else %}
+          <a href="?{% if query %}q={{ query }}&{% endif %}{% if star_rating %}star_rating={{ star_rating }}&{% endif %}{% if amenity %}amenity={{ amenity }}&{% endif %}page={{ num }}"
+            class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">
+            {{ num }}
+          </a>
+        {% endif %}
+      {% endfor %}
+
+      {% if hotels.has_next %}
+        <a href="?{% if query %}q={{ query }}&{% endif %}{% if star_rating %}star_rating={{ star_rating }}&{% endif %}{% if amenity %}amenity={{ amenity }}&{% endif %}page={{ hotels.next_page_number }}"
+          class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">
+          Next
+        </a>
+      {% endif %}
+    </div>
+
   </div>
 
 {% endblock %}
