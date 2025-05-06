@@ -83,6 +83,11 @@ The data is loaded via the custom management command `load_hotels` and includes 
 
 ---
 
+## 🎥Project Demo Video  
+Check out the demo video of this project here:  
+https://youtu.be/PQuqWA4OP2I
+
+
 ## 💡 AI Tool Usage
 
 This project was supported using **ChatGPT (OpenAI)** to:
