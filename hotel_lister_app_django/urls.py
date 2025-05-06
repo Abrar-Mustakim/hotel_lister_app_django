@@ -27,6 +27,7 @@ urlpatterns = [
     path('login/', login_view, name='login'),  # Login page
     path('bookmark/<uuid:hotel_id>/', bookmark_hotel, name='bookmark'),  # Add this URL for bookmarking
     path('unbookmark/<uuid:hotel_id>/', unbookmark_hotel, name='unbookmark'),
+    path('hotel-detail/<uuid:hotel_id>/', hotel_detail, name='hotel_detail'),  # Hotel detail page
     path('register/', register_view, name='register'), 
     path('logout/', logout, name='logout'), 
     path('update-theme/', update_theme, name='update_theme'),

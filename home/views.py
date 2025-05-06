@@ -121,5 +121,40 @@ def logout(request):
     auth_logout(request)
     return redirect('login')
 
+@login_required
 def profile(request):
-    return render(request, 'profile.html')
+    # Get HotelBookmark instances for the logged-in user
+    bookmarks = HotelBookmark.objects.filter(user=request.user).select_related('hotel')
+
+    # Extract the actual Hotel objects for easier template usage
+    bookmarked_hotels = [bookmark.hotel for bookmark in bookmarks]
+
+    return render(request, 'profile.html', {
+        'user': request.user,
+        'bookmarked_hotels': bookmarked_hotels,
+    })
+
+
+@login_required
+def hotel_detail(request, hotel_id):
+    hotel = get_object_or_404(Hotel, uid=hotel_id)
+    images = hotel.images.all()
+    reviews = HotelReview.objects.filter(hotel=hotel).select_related('user')
+
+    if request.method == 'POST':
+        rating = int(request.POST.get('rating', 0))
+        comment = request.POST.get('comment', '')
+        if rating and comment:
+            HotelReview.objects.create(
+                user=request.user,
+                hotel=hotel,
+                rating=rating,
+                comment=comment
+            )
+            return redirect('hotel_detail', hotel_id=hotel_id)
+
+    return render(request, 'hotel_detail.html', {
+        'hotel': hotel,
+        'images': images,
+        'reviews': reviews
+    })

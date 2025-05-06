@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ hotel.hotel_name }} - Details
+{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto mt-6">
+
+    <!-- Hotel Title and Location -->
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+        <div>
+            <h1 class="text-4xl font-bold">{{ hotel.hotel_name }}</h1>
+            <p class="text-gray-500 dark:text-gray-400 mt-1">{{ hotel.location }}</p>
+        </div>
+        <div class="mt-4 md:mt-0">
+            <span class="text-yellow-400 text-lg font-semibold">{{ hotel.star_rating }} ⭐</span>
+        </div>
+    </div>
+
+    <!-- Hotel Gallery -->
+    <div class="mt-6">
+        {% if images %}
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                {% for img in images %}
+                    <img src="{{ img.image.url }}" alt="Hotel Image" class="w-full h-64 object-cover rounded-lg shadow-md">
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-center text-gray-600 dark:text-gray-300 italic mt-4">No images available for this hotel.</p>
+        {% endif %}
+    </div>
+
+    <!-- Description and Info -->
+    <div class="mt-8">
+        <h2 class="text-2xl font-semibold mb-2">Description</h2>
+        <p class="text-lg text-gray-700 dark:text-gray-300">{{ hotel.description }}</p>
+    </div>
+
+    <!-- Amenities -->
+    <div class="mt-6">
+        <h2 class="text-2xl font-semibold mb-2">Amenities</h2>
+        <div class="flex flex-wrap gap-2">
+            {% for amenity in hotel.amenities.all %}
+                <span class="px-3 py-1 bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300 rounded-full text-sm font-medium">
+                    {{ amenity.name }}
+                </span>
+            {% empty %}
+                <p class="text-gray-600 dark:text-gray-300 italic">No amenities listed.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Price -->
+    <div class="mt-6">
+        <h2 class="text-2xl font-semibold mb-2">Price per Night</h2>
+        <p class="text-2xl font-bold text-indigo-600 dark:text-indigo-400">${{ hotel.price }}</p>
+    </div>
+
+    <!-- Review Section -->
+    <div class="mt-10">
+        <h2 class="text-2xl font-bold mb-4">Reviews</h2>
+
+        {% for review in reviews %}
+            <div class="border p-4 rounded-lg shadow-sm mb-4 bg-white dark:bg-gray-900">
+                <div class="flex items-center justify-between mb-2">
+                    <p class="font-semibold">{{ review.user.username }}</p>
+                    <span class="text-yellow-400 font-medium">{{ review.rating }} ⭐</span>
+                </div>
+                <p class="text-gray-700 dark:text-gray-300">{{ review.comment }}</p>
+            </div>
+        {% empty %}
+            <p class="italic text-gray-600 dark:text-gray-300">No reviews yet. Be the first to write one!</p>
+        {% endfor %}
+
+        {% if user.is_authenticated %}
+        <form method="POST" class="mt-6 bg-gray-50 dark:bg-gray-800 p-4 rounded-lg shadow">
+            {% csrf_token %}
+            <h3 class="text-xl font-semibold mb-2">Leave a Review</h3>
+            <label for="rating" class="block text-sm font-medium mb-1">Rating:</label>
+            <select name="rating" id="rating" required class="w-full mb-4 p-2 rounded bg-white dark:bg-gray-700 dark:text-white">
+                <option value="">Select Rating</option>
+                {% for i in "12345" %}
+                    <option value="{{ i }}">{{ i }} Star</option>
+                {% endfor %}
+            </select>
+
+            <label for="comment" class="block text-sm font-medium mb-1">Comment:</label>
+            <textarea name="comment" id="comment" rows="3" required class="w-full p-2 rounded bg-white dark:bg-gray-700 dark:text-white"></textarea>
+
+            <button type="submit" class="mt-3 px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">
+                Submit Review
+            </button>
+        </form>
+        {% else %}
+        <p class="text-center mt-4">
+            <a href="{% url 'login' %}" class="text-indigo-600 hover:underline">Log in</a> to leave a review.
+        </p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
