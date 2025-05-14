@@ -76,6 +76,45 @@ The app allows users to search for hotels by city, filter by star rating or avai
 
 ---
 
+
+### 🐳 Using Docker
+
+You can easily run this project using Docker. Follow these steps to build and run the app inside containers.
+
+#### 1. **Clone the repository**
+   ```bash
+   git clone https://github.com/your-username/hotel_lister_app_django.git
+   cd hotel_lister_app_django
+   ```
+
+#### 2. **Build the Docker containers**
+   This step builds the images for the project using the `Dockerfile` and the `docker-compose.yml`.
+   ```bash
+   docker-compose build
+   ```
+
+#### 3. **Run the Docker containers**
+   This will start the Django app and all the necessary services (like the database).
+   ```bash
+   docker-compose up
+   ```
+
+   After running this command, the Django app will be accessible on `http://localhost:8000`.
+
+#### 4. **Access the Dockerized app**
+   Open your browser and visit:
+   ```
+   http://localhost:8000
+   ```
+
+   Your app should now be running inside a Docker container.
+
+#### 5. **Stopping Docker containers**
+   To stop the running containers:
+   ```bash
+   docker-compose down
+   ```
+
 ## 🧪 Demo Data
 
 We used **Option A** from the assessment: mock/static JSON hotel data stored within the backend.  

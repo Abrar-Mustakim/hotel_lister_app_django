@@ -1,0 +1,9 @@
+asgiref
+Django
+django-froala-editor
+djangorestframework
+Pillow
+pytz
+sqlparse
+tzdata
+gunicorn
